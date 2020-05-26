@@ -189,29 +189,6 @@ double relative_errorr[i],relative_error_calc[i], relative_error_ord[i], sum, su
     }  
 
 
-/*  double x = 123.4674567; 
-    char buf1[MAX]; 
-    double y = 122.4324567; 
-    char buf2[MAX]; 
-  
-    gcvt(x, 16, buf1); 
-    gcvt(y, 16, buf2); */
-
-
-        FILE *kk,*ff;
-        kk=fopen("test1.txt","w");
-        kk=fopen("test2.txt","w");
-       
-  /*    for (i=0;i<1000;i++) {
-      xh1 += i;
-      xl1 += i;
-      xh2 += i;
-      xl2 += i;
-      Summation(xh1,xl1,xh2,xl2,&xh3,&xl3);
-      fprintf(kk,"%.10f %.10f \n",xh3,xl3);
-      i += 0.00002
-      } */
-
     printf(" Summation 1: \n");
         Summation(xh1,xl1,xh2,xl2,&xh3,&xl3);
     printf("xh = %1.16e\n", xh3); 
