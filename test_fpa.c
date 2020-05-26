@@ -101,17 +101,18 @@ if(y0<0) {
 printf("error \n"); }
 y1 = (y1 / y0)*0.5;  
 F2Sum(y0,y1,xh3,xl3);
-} */
+} 
 
- /* void Dot(double x1[3], double x2[3], double x3[3], double x4[3],double *xh3, double *xl3) {  //as pairs
+ void Dot(double x1[3], double x2[3], double x3[3], double x4[3],double *xh3, double *xl3) {  //as pairs
       double u0, u1, v0, v1, t0, t1 ,t2, t3;
       Mult(x1[0],x2[0],x3[0],x4[0],&u0,&u1); 
       Mult(x1[1],x2[1],x3[1],x4[1],&v0,&v1); 
       Mult(x1[2],x2[2],x3[2],x4[2],&t0,&t1);  
       Summation2(u0,u1,v0,v1,&t2,&t3);
       Summation2(t0,t1,t2,t3,xh3,xl3);
-  } */
-   void Inverse_SquareRoot(double x1[3], double x2[3], double x3[3], double x4[3],double *xh3, double *xl3) {  //as pairs
+  } 
+
+  void Inverse_SquareRoot(double x1[3], double x2[3], double x3[3], double x4[3],double *xh3, double *xl3) {  //as pairs
       double xh, xl, x_h, x_l, y0, y1, y2, y3, d0, d1, R3_0, R3_1;
       double u0, u1, uu0, uu1, v0, v1, p0, p1, t0, t1 ,t2, t3, t4, t5, t6, t7;
 
