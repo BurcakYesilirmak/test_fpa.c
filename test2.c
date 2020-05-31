@@ -245,6 +245,8 @@ long double summ, cc, prod_long, c_long, z, t;
        //SUMMATION WITH ARITHMETIC OPERATION
     Division(ch, cl, xh6, xl6, &ch, &cl);
     Summation2(sum_h, sum_l, ch, cl, &sum_h, &sum_l);
+      
+      //Hannoi Tower
     /* ch = chh;
     cl = cll;
     sum_h = sum_hh;
