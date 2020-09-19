@@ -44,7 +44,6 @@ void Summation(double xh1, double xl1, double xh2, double xl2,double *xh3, doubl
   F2Sum(t, z,xh3,xl3);
   /* *xh3=t;
      *xl3=z; */
-return ;
 }
 
 //Pichat and Neumaier’s summation algorithm
@@ -59,7 +58,7 @@ void Summation2(double xh1, double xl1, double xh2, double xl2,double *xh3, doub
 }   
 
 // Dekker's & Polynomial Multiplication
-void Mult(double xh1, double xl1, double xh2, double xl2,double *xh3, double *xl3) {
+/* void Mult(double xh1, double xl1, double xh2, double xl2,double *xh3, double *xl3) {
 double xh_1, xl_1, xh_2, xl_2, t, z;
 VeltkampSplit(xh1, &xh_1, &xl_1); 
 VeltkampSplit(xh2, &xh_2, &xl_2); 
@@ -69,26 +68,42 @@ VeltkampSplit(xh2, &xh_2, &xl_2);
 *xl3 +=  xl_1*xh_2;
 *xl3 +=  xl_1*xl_2+ xl1*xh2 + xh1*xl2;
 return;
-}
+} */
+
+    // Dekker's & Polynomial Multiplication
+  void Mult(double xh1, double xl1, double xh2, double xl2,double *t, double *z) {
+    double xh_1, xl_1, xh_2, xl_2, xh3, xl3;
+    VeltkampSplit(xh1, &xh_1, &xl_1); 
+    VeltkampSplit(xh2, &xh_2, &xl_2); 
+    xh3 =  xh1*xh2;
+    xl3 =  xh_1*xh_2 - xh3;
+    xl3 +=  xh_1*xl_2;
+    xl3 +=  xl_1*xh_2;
+    xl3 +=  xl_1*xl_2+ xl1*xh2 + xh1*xl2;
+    F2Sum(xh3, xl3, t, z);
+    return;
+    }
 
 // inverse multiplication
 void Division2(double xh1, double xl1, double xh_inv, double xl_inv,double *xh3, double *xl3) {
   double xh_1, xl_1, xh_2, xl_2, t, z;
   double xh2,xl2;
-  if(xh_inv || xl_inv != 0) { 
+  if ( (xh_inv != 0) || (xl_inv != 0) ) {  //check order of operations seperately
   xh2= 1/xh_inv;
   xl2= 1/xl_inv; }
-  else  
+  else {  
   xh2=xh_inv; 
-  xl2=xl_inv;
-VeltkampSplit(xh1, &xh_1, &xl_1); 
+  xl2=xl_inv; } 
+//  xh2= 1/xh_inv;
+//  xl2= xl_inv;
+  Mult(xh1, xl1, xh2, xl2, xh3, xl3);
+/* VeltkampSplit(xh1, &xh_1, &xl_1); 
 VeltkampSplit(xh2, &xh_2, &xl_2); 
 *xh3 =  xh1*xh2;
 *xl3 =  xh_1*xh_2 - *xh3;
 *xl3 +=  xh_1*xl_2;
 *xl3 +=  xl_1*xh_2;
-*xl3 +=  xl_1*xl_2+ xl1*xh2 + xh1*xl2;
-return;
+*xl3 +=  xl_1*xl_2+ xl1*xh2 + xh1*xl2; */
 }
 
 // with iteration
@@ -99,7 +114,7 @@ Mult(t, 0, xh2, 0,&u0,&u1);
 z = xh1- u0;
 z -= u1;
 z += xl1;
-z -= *xh3 * xl2;
+z -= t * xl2;
 z /= xh2;  
 F2Sum(t, z, xh3, xl3);
 return;
@@ -123,7 +138,7 @@ return;
      y1 += t5 ;
      if(y0<0) { 
      printf("error \n"); }
-     y1 = (y1 / y0)*0.5;         // y0 and y1 are pairs of the squareroot operation
+     y1 = (y1 / y0)*0.5;         // y0 and y1 are pairs of the square root operation
 
      Mult(y0, y1, y0, y1, &uu0,&uu1); 
      Mult(y0, y1, uu0, uu1, &R3_0,&R3_1);    //pairs of R^3
@@ -150,9 +165,10 @@ return;
     if(fabsl(k[i])>max) 
     max=fabsl(k[i]);
     }
-    //initilial value of alpha long-double
+    //initilial value of alpha long double
     alpha = 1/max;
     eps=1e-15;
+    count =0;
     do {
         count ++ ;
         //for double 
@@ -276,22 +292,30 @@ return;
 int main(int argc, char **argv)
 {
 int i;
+
 //double xh1=0.37797,xl1=0.000293,xh2=0.335593,xl2=0.0001233, xh3=0.3355674, I, J, K;
 double x1= -10.0, x2= 6.0, x3= 4.0 ;
 long double x1long= -10.0, x2long= 6.0, x3long= 4.0 ;
+
 double xh_pair[]={-10.0, 6.0, 4.0}, xh_p[3];
 double xl_pair[]={0, 0, 0}, xl_p[3];
+
 double I, J, K;
 long double T, P, L;
+
 double x_pair1[] ={0.3,0.5,0.7};         // P1={ah,bh,ch}
 double x_pair2[] ={0.003,0.005,0.007};   // P2={al,bl,cl}
-double c, c3, sum, sum_h, sum_l, sum_h2, sum_l2, t_h, t_l, prod, prod_h, prod_l, ch, cl, ch3, cl3;
-double xh6, xl6, xh, xl;
-double relative_errorr[i],relative_error_calc[i];
-long double summ, cc, prod_long, c_long ;
 
- /*   FILE *kk,*kkkk;
-    kk=fopen("SUM.txt","w");
+double sum, sum_h, sum_l, sum_h2, sum_l2, prod, prod_h, prod_l, div_h, div_l; 
+double xh6, xl6, xh, xl, ch, cl, ch3, cl3, c, c3, c4, t_h, t_l ;
+
+long double summ, cc, prod_long, c_long, c_4;
+long int c_44, N;
+
+// SUMMATION ACCURACY TEST
+
+    FILE *kk,*kkkk;
+    kk=fopen("SUM2.txt","w");
     //usual double
     sum=0.0;
     c=3.0;
@@ -317,14 +341,14 @@ long double summ, cc, prod_long, c_long ;
     summ=summ+cc;
          //SUMMATION WITH ARITHMETIC OPERATION
     Division(ch, cl, xh6, xl6, &ch, &cl);
-    Division2(ch, cl, xh6, xl6, &ch3, &cl3);
+    Division(ch, cl, xh6, xl6, &ch3, &cl3);
     Summation2(sum_h, sum_l, ch, cl, &sum_h, &sum_l);
     Summation2(sum_h, sum_l, ch3, cl3, &sum_h2, &sum_l2);
     fprintf(kk,"%d %.20Le %.20Le %.20Le %.20Le\n",i, summ, -(sum-summ)/summ, -(sum_h-summ+sum_l)/summ, -(sum_h2-summ+sum_l2)/summ);  
     } 
    
     FILE *kkk,*fff;
-    kkk=fopen("MULT.txt","w");
+    kkk=fopen("MULT4.txt","w");
     //fff=fopen("MULT2.txt","w");
 
     prod=1.0;
@@ -344,9 +368,6 @@ long double summ, cc, prod_long, c_long ;
     printf("c3=%.16le\n",c3);
     printf("c_long=%.16Le\n",c_long); 
 
-    double *relative_error_ord = (double*)malloc(500);
-    if (relative_error_ord != NULL) {  
-
     for(i=0; i<100000; i++) { 
     // ORDINARY DOUBLE MULTIPLICATION
     prod= prod*c3;
@@ -354,16 +375,43 @@ long double summ, cc, prod_long, c_long ;
     // ORDINARY LONG DOUBLE MULTIPLICATION
     prod_long = prod_long*c_long;
 
-    // MULTIPLICATION WITH ARITHMETIC OPERATION        
+    // MULTIPLICATION ACCURACY TEST       
     Mult(prod_h, prod_l, c3, 0, &prod_h, &prod_l);
     Mult(t_h, t_l, ch, cl, &t_h, &t_l);
     fprintf(kkk,"%d %.22Le %.22Le %.22Le  \n",i, prod_long, -(prod-prod_long)/prod_long, -(prod_h-prod_long+prod_l)/prod_long);
     //fprintf(fff,"%d %.22Le %.22Le %.22Le  \n",i, prod_long, -(prod-prod_long)/prod_long, -(t_h-prod_long+t_l)/prod_long);
     } 
+    //}
             printf("prod_h= %.16le prod_l=%.16le\n",prod_h,prod_l);
-            printf("th= %.16le tl=%.16le\n",t_h,t_l); */
+            printf("th= %.16le tl=%.16le\n",t_h,t_l); 
 
-    // Unit vector with pair / double / longdouble
+  // DIVISION ACCURACY TEST  
+
+    FILE *tt;
+    tt=fopen("DIV.txt","w"); 
+    
+    N= 100000; //number of division operation
+    c4  = 1.0;    //double
+    c_4 = 1.0;    //long double  
+    
+    div_h = 1.0; //pairs
+    div_l = 0;
+
+    for (i=0; i<=600; i++){
+          //ORDINARY DOUBLE DIVISION
+    c4 =c4/3.0;
+
+         //ORDINARY LONG-DOUBLE DIVISION
+    c_4 =c_4/3.0;
+
+         //SUMMATION WITH ARITHMETIC OPERATION
+    Division(div_h, div_l, 3.0, 0.0, &div_h, &div_l);
+
+    fprintf(tt,"%d %.20Le %.20Le \n",i, -(c4-c_4)/c_4, -(div_h-c_4+div_l)/c_4 );  
+    } 
+
+
+    // Unit vector with pair / double / longdouble ACCURACY TEST
    unit_vector(x1, x2, x3, &I, &J, &K);
    unit_vector_longdouble(x1long, x2long, x3long, &T, &P, &L);  
    unit_vector_pairwise(xh_pair, xl_pair, xh_p, xl_p);
@@ -377,9 +425,10 @@ long double summ, cc, prod_long, c_long ;
     printf("  for X component= %.16Le \n",-((xh_p[0]-T+xl_p[0])/T));
     printf("  for Y component= %.16Le \n",-((xh_p[1]-P+xl_p[1])/P));
     printf("  for Z component= %.16Le \n",-((xh_p[2]-L+xl_p[2])/L)); 
-/* fclose(kk);
-fclose(kkk); 
-fclose(fff);  */
-return (0); 
-//} 
+    
+ fclose(kk);
+ fclose(kkk); 
+fclose(fff); 
+ fclose(tt); 
+return (0);  
 }
