@@ -1,5 +1,5 @@
 // This code is a tool which constructs the floating point arithmetic operations
-// Including accuracy test for each operation
+// Including accuracy tests for each operation
 // Burcak Yesilirmak
 
 #include<stdlib.h>
