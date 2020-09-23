@@ -1,3 +1,6 @@
+  // This code splits the numbers  as pairs that taken from file  
+  // Burcak Yesilirmak
+
   #include <stdlib.h>
   #include <stdio.h>
   #include <math.h>
@@ -60,7 +63,7 @@ FILE *fp;
              fclose(fp);
      return (0);
 }
-   // another solution
+ // another solution
 /* void split(char *buffer, double *xh, double *xl){
      FILE *fp; 
      char ch[24], res[30], rest[10] , rest2[10], ress[20];
