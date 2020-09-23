@@ -313,7 +313,7 @@ long int c_44, N;
 
 // SUMMATION ACCURACY TEST
 
-  /*  FILE *kk,*kkkk;
+    FILE *kk,*kkkk;
     kk=fopen("SUM2.txt","w");
     //usual double
     sum=0.0;
@@ -344,10 +344,10 @@ long int c_44, N;
     Summation2(sum_h, sum_l, ch, cl, &sum_h, &sum_l);
     Summation2(sum_h, sum_l, ch3, cl3, &sum_h2, &sum_l2);
     fprintf(kk,"%d %.20Le %.20Le %.20Le %.20Le\n",i, summ, -(sum-summ)/summ, -(sum_h-summ+sum_l)/summ, -(sum_h2-summ+sum_l2)/summ);  
-    } */
+    } 
 
 
-    /*   // MULTIPLICATION ACCURACY TEST   
+    // MULTIPLICATION ACCURACY TEST   
     FILE *kkk,*fff;
     kkk=fopen("MULT5.txt","w");
     //fff=fopen("MULT2.txt","w");
@@ -380,14 +380,14 @@ long int c_44, N;
     Mult2(t_h, t_l, ch, cl, &t_h, &t_l);
     fprintf(kkk,"%d %.22Le %.22Le %.22Le  \n",i, prod_long, -(prod-prod_long)/prod_long, -(prod_h-prod_long+prod_l)/prod_long);
     //fprintf(fff,"%d %.22Le %.22Le %.22Le  \n",i, prod_long, -(prod-prod_long)/prod_long, -(t_h-prod_long+t_l)/prod_long);
-    } */
+    } 
     
-        /*    printf("prod_h= %.16le prod_l=%.16le\n",prod_h,prod_l);
+     /*     printf("prod_h= %.16le prod_l=%.16le\n",prod_h,prod_l);
             printf("th= %.16le tl=%.16le\n",t_h,t_l); */
 
   // DIVISION ACCURACY TEST1 
 
- /*   FILE *tt;
+    FILE *tt;
     tt=fopen("DIV.txt","w"); 
     
     N= 100000; //number of division operation
@@ -408,10 +408,7 @@ long int c_44, N;
     Division(div_h, div_l, 3.0, 0.0, &div_h, &div_l);
 
     fprintf(tt,"%d %.20Le %.20Le \n",i, -(c4-c_4)/c_4, -(div_h-c_4+div_l)/c_4 );  
-    } */
-
-
-
+    } 
 
   // DIVISION ACCURACY TEST2
 
@@ -448,7 +445,7 @@ long int c_44, N;
 
    
 
-  /*  // Unit vector with pair / double / longdouble ACCURACY TEST
+   // Unit vector with pair / double / longdouble ACCURACY TEST
    unit_vector(x1, x2, x3, &I, &J, &K);
    unit_vector_longdouble(x1long, x2long, x3long, &T, &P, &L);  
    unit_vector_pairwise(xh_pair, xl_pair, xh_p, xl_p);
@@ -461,15 +458,15 @@ long int c_44, N;
     printf("relative errors PAIRWISE / LONG-DOUBLE\n");
     printf("  for X component= %.16Le \n",-((xh_p[0]-T+xl_p[0])/T));
     printf("  for Y component= %.16Le \n",-((xh_p[1]-P+xl_p[1])/P));
-    printf("  for Z component= %.16Le \n",-((xh_p[2]-L+xl_p[2])/L)); */
+    printf("  for Z component= %.16Le \n",-((xh_p[2]-L+xl_p[2])/L)); 
 
 
-  /* Inverse_SquareRoot(xh_pair, xl_pair, &x1, &x2);
-     printf("  x1= %.16le x2=%.16le \n",x1, x2); */
+   Inverse_SquareRoot(xh_pair, xl_pair, &x1, &x2);
+     printf("  x1= %.16le x2=%.16le \n",x1, x2); 
 
-// fclose(kk);
-// fclose(kkk); 
-// fclose(fff); 
-// fclose(tt); 
+ fclose(kk);
+ fclose(kkk); 
+ fclose(fff); 
+ fclose(tt); 
 return (0);  
 }
