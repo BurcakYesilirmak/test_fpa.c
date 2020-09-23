@@ -1,3 +1,5 @@
+// Accuracy test with random number generator
+// Burcak Yesilirmak
 
 #include <stdlib.h>
 #include <stdio.h>
