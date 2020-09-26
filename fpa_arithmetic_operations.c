@@ -1,4 +1,4 @@
-// This code is a tool which constructs the floating point arithmetic operations
+// This code creates a tool which constructs the floating point arithmetic operations
 // Including accuracy tests for each operation
 // Burcak Yesilirmak
 
