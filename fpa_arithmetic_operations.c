@@ -411,9 +411,7 @@ long int c_44, N;
     } 
 
   // DIVISION ACCURACY TEST2
-
-    FILE *tt;
-    tt=fopen("DIV.txt","w"); 
+  
     long double A;
     double B1, B2, B3;
     
